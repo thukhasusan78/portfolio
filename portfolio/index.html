@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>သုခစုစံ - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f0f23;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .wrapper { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at center, #1a1a4e 0%, #0f0f23 70%);
+            z-index: -1;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .hero .tagline {
+            font-size: 1.3rem;
+            color: #8888aa;
+            margin-bottom: 30px;
+        }
+        .hero .subtitle {
+            font-size: 1rem;
+            color: #6666aa;
+            max-width: 600px;
+        }
+        .scroll-indicator {
+            margin-top: 50px;
+            animation: bounce 2s infinite;
+            color: #7b2ff7;
+            font-size: 1.5rem;
+        }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(15px); } }
+
+        /* Sections */
+        section { padding: 80px 0; }
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px; height: 3px;
+            background: linear-gradient(90deg, #00d4ff, #7b2ff7);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* About */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .about-text p { margin-bottom: 15px; color: #bbb; font-size: 1.05rem; }
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .stat-card:hover { transform: translateY(-5px); border-color: #7b2ff7; }
+        .stat-card i { font-size: 2rem; background: linear-gradient(135deg, #00d4ff, #7b2ff7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+        .stat-card .num { font-size: 1.8rem; font-weight: bold; color: #fff; }
+        .stat-card .label { font-size: 0.85rem; color: #888; margin-top: 5px; }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .project-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+        .project-card:hover { transform: translateY(-5px); border-color: #00d4ff; box-shadow: 0 10px 30px rgba(0,212,255,0.1); }
+        .project-card i { font-size: 2rem; color: #00d4ff; margin-bottom: 15px; }
+        .project-card h3 { font-size: 1.2rem; margin-bottom: 10px; color: #fff; }
+        .project-card p { color: #999; font-size: 0.95rem; }
+
+        /* Business */
+        .biz-card {
+            background: linear-gradient(135deg, rgba(123,47,247,0.1), rgba(0,212,255,0.05));
+            border: 1px solid rgba(123,47,247,0.2);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .biz-card h3 { font-size: 1.5rem; margin-bottom: 10px; color: #fff; }
+        .biz-card p { color: #aaa; margin-bottom: 20px; }
+        .biz-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .tag {
+            background: rgba(123,47,247,0.15);
+            color: #b388ff;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        /* Interests */
+        .interests {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .interest-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 20px 30px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .interest-item:hover { border-color: #7b2ff7; background: rgba(123,47,247,0.05); }
+        .interest-item i { font-size: 1.5rem; color: #00d4ff; margin-bottom: 8px; }
+        .interest-item span { display: block; font-size: 0.9rem; color: #aaa; }
+
+        /* Contact */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        .contact-links a {
+            color: #888;
+            font-size: 1.8rem;
+            transition: all 0.3s;
+        }
+        .contact-links a:hover { color: #00d4ff; transform: translateY(-3px); }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>သုခစုစံ</h1>
+        <p class="subtitle">ဒစ်ဂျစ်တယ် ထုတ်ကုန်များ • AI အေဂျင့် • ရုပ်ရှင် ဖြန့်ချိရေး</p>
+        <p class="subtitle">ThuKha Industries ၏ တည်ထောင်သူနှင့် အမှုဆောင်အရာရှိချုပ်</p>
+        <div class="scroll-indicator"><i class="fas fa-chevron-down"></i></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section>
+        <h2 class="section-title">ကိုယ်ရေးအကျဉ်း</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>မင်္ဂလာပါ။ ကျွန်တော်ကတော့ <strong>သုခစုစံ</strong> ဖြစ်ပါတယ်။ မန္တလေးမြို့တွင် နေထိုင်လျက်ရှိပြီး ဒစ်ဂျစ်တယ်နည်းပညာနှင့် Artificial Intelligence နယ်ပယ်တွင် စိတ်ဝင်စားမှုရှိပါတယ်။</p>
+                <p>ကျွန်တော်သည် <strong>ThuKha Industries</strong> ၏ ပိုင်ရှင်ဖြစ်ပြီး ကိုယ်ပိုင် AI Agent (JARVIS) ကို တည်ဆောက်လျက်ရှိပါတယ်။ M-Flix အမည်ဖြင့် ရုပ်ရှင်၊ စီးရီးနှင့် ကာတွန်း Telegram Channel များကိုလည်း စီမံခန့်ခွဲပါတယ်။</p>
+                <p>နည်းပညာအပြင် အာကာသသိပ္ပံ၊ စူပါဟီးရိုး ရုပ်ရှင်များနှင့် စီးပွားရေး သတင်းများကိုလည်း စိတ်ဝင်စားပါတယ်။</p>
+            </div>
+            <div class="about-stats">
+                <div class="stat-card">
+                    <i class="fas fa-robot"></i>
+                    <div class="num">JARVIS</div>
+                    <div class="label">Personal AI Agent</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-film"></i>
+                    <div class="num">M-Flix</div>
+                    <div class="label">Movie Channels</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-store"></i>
+                    <div class="num">ThuKha</div>
+                    <div class="label">Industries</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-rocket"></i>
+                    <div class="num">AI</div>
+                    <div class="label">Automation</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BUSINESS -->
+    <section>
+        <h2 class="section-title">ThuKha Industries</h2>
+        <div class="biz-card">
+            <i class="fas fa-crown" style="font-size:2.5rem; color:#ffd700; margin-bottom:15px;"></i>
+            <h3>ဒစ်ဂျစ်တယ် ထုတ်ကုန်များနှင့် ဝန်ဆောင်မှုများ</h3>
+            <p>ဒစ်ဂျစ်တယ် ထုတ်ကုန်များ၊ AI Agent ဝန်ဆောင်မှုများ၊ ရုပ်ရှင်နှင့် ဖျော်ဖြေရေး ဖြန့်ချိရေးလုပ်ငန်းများကို ဆောင်ရွက်လျက်ရှိပါတယ်။</p>
+            <div class="biz-tags">
+                <span class="tag">AI Agent Development</span>
+                <span class="tag">Automation</span>
+                <span class="tag">Digital Products</span>
+                <span class="tag">Content Distribution</span>
+                <span class="tag">Telegram Channels</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section>
+        <h2 class="section-title">ထင်ရှားသော ပရောဂျက်များ</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <i class="fas fa-brain"></i>
+                <h3>JARVIS AI Agent</h3>
+                <p>VPS ပေါ်တွင် အခြေစိုက်၍ နေ့စဉ်လုပ်ငန်းဆောင်တာများ၊ သတင်းအချက်အလက်ရှာဖွေခြင်း၊ ဆိုရှယ်မီဒီယာစီမံခန့်ခွဲခြင်းနှင့် အလိုအလျောက် လုပ်ဆောင်ပေးသော ကိုယ်ပိုင် AI Agent။</p>
+            </div>
+            <div class="project-card">
+                <i class="fas fa-film"></i>
+                <h3>M-Flix Channels</h3>
+                <p>ရုပ်ရှင် (M-Flix Movie)၊ စီးရီး (M-Flix Series) နှင့် ကာတွန်း (M-Flix Cartoon) ချန်နယ်များကို စီမံခန့်ခွဲကာ အလိုအလျောက် ဇာတ်ကားများ တင်ဆက်ပေးခြင်း။</p>
+            </div>
+            <div class="project-card">
+                <i class="fas fa-gamepad"></i>
+                <h3>Neon Cyber Dodge</h3>
+                <p>HTML5 အာကာသဂိမ်းတစ်ခုကို ကိုယ်တိုင်ရေးသားပြီး GitHub Pages ပေါ်တွင် Deploy လုပ်ထားရှိခြင်း။</p>
+            </div>
+            <div class="project-card">
+                <i class="fas fa-phone"></i>
+                <h3>BrainBite Myanmar</h3>
+                <p>အာကာသသိပ္ပံနှင့် နည်းပညာဗဟုသုတများကို မြန်မာလို ဖြန့်ဝေပေးသော အသိပညာပေး စာမျက်နှာ။</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHANNELS -->
+    <section>
+        <h2 class="section-title">M-Flix Channel များ</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <i class="fas fa-video"></i>
+                <h3>M-Flix Movies</h3>
+                <p>@mflixmoviemm — အက်ရှင်၊ သိပ္ပံ၊ စူပါဟီးရိုး ရုပ်ရှင်များ</p>
+            </div>
+            <div class="project-card">
+                <i class="fas fa-tv"></i>
+                <h3>M-Flix Series</h3>
+                <p>@mflixseriesmm — ဇာတ်လမ်းတွဲများနှင့် စီးရီးများ</p>
+            </div>
+            <div class="project-card">
+                <i class="fas fa-dragon"></i>
+                <h3>M-Flix Cartoon</h3>
+                <p>@mflixcartoonmm — ကာတွန်းရုပ်ရှင်များနှင့် Anime များ</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERESTS -->
+    <section>
+        <h2 class="section-title">စိတ်ဝင်စားမှုများ</h2>
+        <div class="interests">
+            <div class="interest-item">
+                <i class="fas fa-robot"></i>
+                <span>Artificial Intelligence</span>
+            </div>
+            <div class="interest-item">
+                <i class="fas fa-globe"></i>
+                <span>Space Science</span>
+            </div>
+            <div class="interest-item">
+                <i class="fas fa-film"></i>
+                <span>Superhero Movies</span>
+            </div>
+            <div class="interest-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Business & Tech</span>
+            </div>
+            <div class="interest-item">
+                <i class="fas fa-code"></i>
+                <span>Coding</span>
+            </div>
+            <div class="interest-item">
+                <i class="fas fa-gamepad"></i>
+                <span>Gaming</span>
+            </div>
+            <div class="interest-item">
+                <i class="fas fa-music"></i>
+                <span>Music</span>
+            </div>
+            <div class="interest-item">
+                <i class="fas fa-book"></i>
+                <span>Knowledge Sharing</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section>
+        <h2 class="section-title">ဆက်သွယ်ရန်</h2>
+        <div class="contact-links">
+            <a href="https://github.com/thukhasusan78" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://t.me/mflixmoviemm" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+            <a href="https://www.facebook.com/ThuKhaIndustries" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2026 သုခစုစံ (ThuKha Su San) • Built with ❤️ by JARVIS</p>
+    </footer>
+
+</div>
+</body>
+</html>
